@@ -10,7 +10,7 @@ const firestore = new Firestore({
 const docRef1 = firestore.collection('kafka');
 
 addDocument = record => docRef1.add( record).then((docRef) => {
-  console.log('Document added with ID: ', docRef.id);
+  console.log('Document added with Data: ', record);
 })
 .catch((error) => {
   console.error('Error adding document: ', error);

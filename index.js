@@ -23,9 +23,10 @@ app.get('/', (req, res) => {
   res.send('Hello, Express!');
 });
 
-app.post('/', async (req, res) => {
-  await addDocument(req.body);
-res.send('Done');
+app.post('/',  (req, res) => {
+   addDocument(req.body);
+   
+   setTimeout(res.send('Done'), 100) ;
 });
 
 const port = 3000;

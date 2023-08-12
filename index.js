@@ -4,7 +4,7 @@ const app = express();
 
 // Define a route
 app.get('/', (req, res) => {
-    console.log(req.body);
+    console.warn(req.body);
   res.send('Hello, Express!');
 });
 

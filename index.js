@@ -26,7 +26,7 @@ app.get('/', (req, res) => {
 app.post('/',  (req, res) => {
    addDocument(req.body);
    
-   setTimeout(res.send('Done'), 100) ;
+   setTimeout(() => { res.send('Done')} , 100) ;
 });
 
 const port = 3000;

@@ -7,12 +7,21 @@ on:
     branches: [ "master" ]
 
 jobs:
-
   build:
-
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v3
+    
+    - name: Docker Login
+      env: 
+        user: ${{ secrets.DOCKER_USER }}
+        pwd: ${{ secrets.DOCKER_SECRET }}
+      run: docker login -u $user -p $pwd 
+      
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag kafkasinkcollector-app:$(date +%s)
+      run: docker build . -t lithin87/kafkasinkcollector
+      
+    - name: Push the Docker image
+      run: docker push lithin87/kafkasinkcollector
+      
+      

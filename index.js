@@ -7,9 +7,14 @@ const firestore = new Firestore({
   keyFilename: './Resources/gcloud.json',
 });
 
-const docRef = firestore.collection('kafka');
+const docRef1 = firestore.collection('kafka');
 
-addDocument = record => docRef.add( record)
+addDocument = record => docRef1.add( record).then((docRef) => {
+  console.log('Document added with ID: ', docRef.id);
+})
+.catch((error) => {
+  console.error('Error adding document: ', error);
+});
 
 const app = express();
 app.use(express.json());
@@ -18,8 +23,8 @@ app.get('/', (req, res) => {
   res.send('Hello, Express!');
 });
 
-app.post('/', (req, res) => {
-  addDocument(req.body);
+app.post('/', async (req, res) => {
+  await addDocument(req.body);
 res.send('Done');
 });
 

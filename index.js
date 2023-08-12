@@ -7,7 +7,7 @@ app.get('/', (req, res) => {
   res.send('Hello, Express!');
 });
 
-app.get('/', (req, res) => {
+app.post('/', (req, res) => {
   console.warn(req.body);
 res.send('Hello, Express!');
 });

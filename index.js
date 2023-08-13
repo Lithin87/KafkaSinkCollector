@@ -19,7 +19,7 @@ addDocument = record => docRef1.add( record).then((docRef) => {
 
 const app = express();
 // app.use(express.json());
-// app.use(bodyParser.json());
+app.use(bodyParser.text());
 // app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get('/', (req, res) => {
@@ -28,7 +28,7 @@ app.get('/', (req, res) => {
 
 app.post('/',  (req, res) => {
   console.log(req.body);
-   addDocument(req.body);
+   addDocument(JSON.parse(req.body));
    
    setTimeout(() => { res.send('Done')} , 100) ;
 });

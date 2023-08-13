@@ -1,6 +1,16 @@
 const express = require('express');
 const { Firestore } = require('@google-cloud/firestore');
 const bodyParser = require('body-parser');
+const avro = require('avsc');
+
+const schema = {
+  type: 'record',
+  name: 'User',
+  fields: [
+    { name: 'ff5', type: 'string' },
+    { name: 'sff', type: 'string' }
+  ]
+};
 
 
 const firestore = new Firestore({
@@ -13,14 +23,10 @@ const docRef1 = firestore.collection('kafka');
 addDocument = record => docRef1.add( record).then((docRef) => {
   console.log('Document added with Data: ', record);
 })
-.catch((error) => {
-  console.error('Error adding document: ', error);
-});
 
 const app = express();
-// app.use(express.json());
 app.use(bodyParser.text());
-// app.use(bodyParser.urlencoded({ extended: true }));
+
 
 app.get('/', (req, res) => {
   res.send('Hello, Express!');
@@ -28,9 +34,8 @@ app.get('/', (req, res) => {
 
 app.post('/',  (req, res) => {
   console.log(req.body);
-   addDocument(JSON.parse(req.body));
-   
-   setTimeout(() => { res.send('Done')} , 100) ;
+  //  addDocument(JSON.parse(req.body));
+  res.send('Done') ;
 });
 
 const port = 3000;

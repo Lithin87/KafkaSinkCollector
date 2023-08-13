@@ -24,6 +24,7 @@ app.get('/', (req, res) => {
 });
 
 app.post('/',  (req, res) => {
+  console.log(req.body);
    addDocument(req.body);
    
    setTimeout(() => { res.send('Done')} , 100) ;

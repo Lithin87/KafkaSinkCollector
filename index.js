@@ -25,7 +25,7 @@ addDocument = record => docRef1.add( record).then((docRef) => {
 })
 
 const app = express();
-app.use(bodyParser.text());
+app.use(bodyParser.json());
 
 
 app.get('/', (req, res) => {

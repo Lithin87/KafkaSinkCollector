@@ -47,16 +47,16 @@ app.use(bodyParser.text());
 
 app.get('/', (req, res) => {
 
-const avroData = Buffer.from(
-  "Struct{store_id=86,order_lines=[Struct{product_id=93,category=User_2,quantity=70,unit_price=3.3829043,net_price=7.017032}, Struct{product_id=90,category=User_9,quantity=10,unit_price=8.549235,net_price=6.643399}]}", "base64");
+// const avroData = Buffer.from(
+//   "Struct{store_id=86,order_lines=[Struct{product_id=93,category=User_2,quantity=70,unit_price=3.3829043,net_price=7.017032}, Struct{product_id=90,category=User_9,quantity=10,unit_price=8.549235,net_price=6.643399}]}", "base64");
 
 
-const decodedData = type.fromBuffer(avroData);
+// const decodedData = type.fromBuffer(avroData);
 
-const jsonData = JSON.stringify(decodedData, null, 2);
-console.log(jsonData);
+// const jsonData = JSON.stringify(decodedData, null, 2);
+// console.log(jsonData);
 
-  res.send(modifiedString);
+  res.send("Hello");
 });
 
 app.post('/',  (req, res) => {

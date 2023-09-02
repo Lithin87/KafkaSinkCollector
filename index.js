@@ -3,18 +3,35 @@ const { Firestore } = require('@google-cloud/firestore');
 const bodyParser = require('body-parser');
 const avro = require('avsc');
 
-const schema = {
+const avroSchema = {
   type: 'record',
-  name: 'User',
+  name: 'Order',
   fields: [
-    { name: 'ff5', type: 'string' },
-    { name: 'sff', type: 'string' }
-  ]
+    { name: 'store_id', type: 'int' },
+    {
+      name: 'order_lines',
+      type: {
+        type: 'array',
+        items: {
+          type: 'record',
+          name: 'OrderLine',
+          fields: [
+            { name: 'product_id', type: 'int' },
+            { name: 'category', type: 'string' },
+            { name: 'quantity', type: 'int' },
+            { name: 'unit_price', type: 'float' },
+            { name: 'net_price', type: 'float' },
+          ],
+        },
+      },
+    },
+  ],
 };
+const type = avro.parse(avroSchema);
 
 
 const firestore = new Firestore({
-  projectId: 'ecstatic-cosmos-387220',
+  projectId: 'cloudtest-396310',
   keyFilename: './Resources/gcloud.json',
 });
 
@@ -25,16 +42,29 @@ addDocument = record => docRef1.add( record).then((docRef) => {
 })
 
 const app = express();
-app.use(bodyParser.json());
+app.use(bodyParser.text());
 
 
 app.get('/', (req, res) => {
-  res.send('Hello, Express!');
+
+const avroData = Buffer.from(
+  "Struct{store_id=86,order_lines=[Struct{product_id=93,category=User_2,quantity=70,unit_price=3.3829043,net_price=7.017032}, Struct{product_id=90,category=User_9,quantity=10,unit_price=8.549235,net_price=6.643399}]}", "base64");
+
+
+const decodedData = type.fromBuffer(avroData);
+
+const jsonData = JSON.stringify(decodedData, null, 2);
+console.log(jsonData);
+
+  res.send(modifiedString);
 });
 
 app.post('/',  (req, res) => {
   console.log(req.body);
   //  addDocument(JSON.parse(req.body));
+
+  
+
   res.send('Done') ;
 });
 

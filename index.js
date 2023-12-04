@@ -50,8 +50,13 @@ app.get('/', (req, res) => {
 });
 
 app.post('/',  (req, res) => {
-  console.log(req.body);
-  res.status(400).send('Done') ;
+  const randomValue = Math.random();
+
+  if (randomValue <= 0.7) {
+    res.status(400).send('Bad Request');
+  } else {
+    res.status(200).send('OK');
+  }
 });
 
 const port = 3000;

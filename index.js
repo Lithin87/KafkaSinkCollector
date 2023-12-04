@@ -52,7 +52,7 @@ app.get('/', (req, res) => {
 app.post('/',  (req, res) => {
   const randomValue = Math.random();
 
-  if (randomValue <= 0.7) {
+  if (randomValue <= 0.9) {
     res.status(400).send('Bad Request');
   } else {
     res.status(200).send('OK');
